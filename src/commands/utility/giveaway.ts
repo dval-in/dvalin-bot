@@ -11,7 +11,7 @@ export class PingCommand implements Command {
 			option.setName("channel").setDescription("The channel to echo into").setRequired(true)
 		)
 		.addStringOption((option) => option.setName("duration").setDescription("The duration of the giveaway."))
-		.addStringOption((option) => option.setName("nWinners").setDescription("The number of winners for the giveaway."));
+		.addNumberOption((option) => option.setName("nWinners").setDescription("The number of winners for the giveaway."));
 
 	async execute(interaction: any): Promise<void> {
 		const input = interaction.options.getString("input");
