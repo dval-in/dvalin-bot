@@ -1,17 +1,16 @@
 import { SlashCommandBuilder } from "discord.js";
-import { Command } from "../command";
+import { Command } from "../types/command";
 
 export class PingCommand implements Command {
-	name = "giveaway";
-	description = "Creates a giveaway.";
+	name = "ping";
+	description = "Replies with Pong!";
 	slashCommandConfig = new SlashCommandBuilder()
 		.setName(this.name)
 		.setDescription(this.description)
 		.addChannelOption((option) =>
 			option.setName("channel").setDescription("The channel to echo into").setRequired(true)
 		)
-		.addStringOption((option) => option.setName("duration").setDescription("The duration of the giveaway."))
-		.addNumberOption((option) => option.setName("nWinners").setDescription("The number of winners for the giveaway."));
+		.addStringOption((option) => option.setName("input").setDescription("The input to echo back"));
 
 	async execute(interaction: any): Promise<void> {
 		const input = interaction.options.getString("input");
