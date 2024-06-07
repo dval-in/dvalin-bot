@@ -1,6 +1,6 @@
 import { Client, Message } from "discord.js";
 import { PREFIX } from "../config";
-import { startGiveaway, enterGiveaway, giveawayActive } from "../commands/giveaway";
+import { startGiveaway, enterGiveaway, giveawayActive } from "../commands/utility/giveaway";
 
 export function onMessageCreate(client: Client, message: Message): void {
 	if (message.author.bot) return;

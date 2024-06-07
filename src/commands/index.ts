@@ -6,4 +6,5 @@ export interface Command {
     slashCommandConfig: SlashCommandBuilder;
 
     execute(interaction: ChatInputCommandInteraction): Promise<void>;
+
 }
