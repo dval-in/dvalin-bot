@@ -5,6 +5,7 @@ import { HelpCommand } from "../commands/misc/help";
 import { ClearCommand } from "../commands/moderation/clear";
 import { KickCommand } from "../commands/moderation/kick";
 import { BanCommand } from "../commands/moderation/ban";
+import { UnbanCommand } from "../commands/moderation/unban";
 
 export class InteractionHandler {
 	private commands: Command[];
@@ -16,6 +17,7 @@ export class InteractionHandler {
 			new ClearCommand(),
 			new KickCommand(),
 			new BanCommand(),
+			new UnbanCommand(),
 		];
 	}
 
