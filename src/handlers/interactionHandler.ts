@@ -1,6 +1,7 @@
 import { Interaction, ChatInputCommandInteraction, ButtonInteraction } from "discord.js";
 import { Command } from "../commands/command";
 import { PingCommand } from "../commands/misc/ping";
+import { HelpCommand } from "../commands/misc/help";
 
 export class InteractionHandler {
 	private commands: Command[];
@@ -8,6 +9,7 @@ export class InteractionHandler {
 	constructor() {
 		this.commands = [
 			new PingCommand(),
+			new HelpCommand(),
 		];
 	}
 
