@@ -19,14 +19,23 @@ export class ClearCommand implements Command {
         const amount = interaction.options.getInteger("amount") ?? 50;
         const channel = interaction.channel;
 
-        if (amount > 50 || amount < 1) {
-            await interaction.reply(
-                {
-                    content: "Invalid amount entered.",
-                    ephemeral: true
-                }
-            );
-        } else {
+        if (!interaction.appPermissions.has(PermissionFlagsBits.ManageMessages)) {
+            await interaction.reply({
+                content: "Bot is missing \`Manage Messages\` permission.",
+                ephemeral: true
+            });
+            return;
+        }
+
+        if (amount < 1 || amount > 50) {
+            interaction.reply({
+                content: "Invalid amount. Must be in range \`[1-50]\`, inclusive.",
+                ephemeral: true
+            });
+            return;
+        }
+
+        try {
             const fetched = await channel.messages.fetch( {limit: amount} )
             await channel.bulkDelete(fetched);
             await interaction.reply(
@@ -35,6 +44,11 @@ export class ClearCommand implements Command {
                     ephemeral: true
                 }
             );                
+        } catch (err) {
+            await interaction.reply({
+                content: "You cannot delete messages older than 14 days.",
+                ephemeral: true
+            });
         }
     }
 }
