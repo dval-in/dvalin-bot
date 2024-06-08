@@ -13,7 +13,7 @@ export class GiveawayCommand implements Command {
 		)
 		.addStringOption((option) =>
 			option.setName("duration").setDescription("The duration of the giveaway.").setRequired(true)
-		)
+	)
 		.addNumberOption((option) =>
 			option.setName("number_of_winners").setDescription("The number of winners for the giveaway.")
 		);
@@ -31,7 +31,7 @@ export class GiveawayCommand implements Command {
 			const match = input.match(timeRegex);
 
 			if (!match) {
-				console.error("Invalid input format. Please provide a valid time (e.g., '1 day 10 hours').");
+				console.error("Invalid input format. Please provide a valid time.");
 				return null;
 			};
 
