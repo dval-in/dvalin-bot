@@ -3,6 +3,7 @@ import { Command } from "../types/command";
 import { PingCommand } from "../commands/misc/ping";
 import { HelpCommand } from "../commands/misc/help";
 import { ClearCommand } from "../commands/moderation/clear";
+import { KickCommand } from "../commands/moderation/kick";
 
 export class InteractionHandler {
 	private commands: Command[];
@@ -12,6 +13,7 @@ export class InteractionHandler {
 			new PingCommand(),
 			new HelpCommand(),
 			new ClearCommand(),
+			new KickCommand(),
 		];
 	}
 
