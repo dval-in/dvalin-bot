@@ -16,7 +16,7 @@ export class PingCommand implements Command {
 		const input = interaction.options.getString("input");
 		const channel = interaction.options.getChannel("channel");
 
-		await channel.send(`${interaction.user.username}\nDuration: ${interaction.duration}\n your input: ${input}`);
+await channel.send(`Pong: ${interaction.user.username}\nYour ID: ${interaction.user.id}\n your input: ${input}`);
 		await interaction.reply({ content: "Message sent to the specified channel!", ephemeral: true });
 	}
 }
