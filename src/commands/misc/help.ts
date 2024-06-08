@@ -3,7 +3,7 @@ import { Command } from "../../types/command";
 
 export class HelpCommand implements Command {
     name = "help";
-    description = "Get help with and see general information about Dvalin";
+    description = "Get help with and see general information about Katheryne.";
     slashCommandConfig = new SlashCommandBuilder()
         .setName(this.name)
         .setDescription(this.description);
@@ -12,7 +12,7 @@ export class HelpCommand implements Command {
         const info = new EmbedBuilder()
             .setColor(0x0099FF)
             .setTitle("Help")
-            .setDescription("Dvalin is a reliable discord helper for [dval.in](https://dval.in).")
+            .setDescription("Katheryne is a reliable discord helper for [dval.in](https://dval.in).")
             .addFields(
                 {
                     name: "Moderator Commands",
