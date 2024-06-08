@@ -2,6 +2,7 @@ import { Interaction, ChatInputCommandInteraction, ButtonInteraction } from "dis
 import { Command } from "../commands/command";
 import { PingCommand } from "../commands/misc/ping";
 import { HelpCommand } from "../commands/misc/help";
+import { ClearCommand } from "../commands/moderation/clear";
 
 export class InteractionHandler {
 	private commands: Command[];
@@ -10,6 +11,7 @@ export class InteractionHandler {
 		this.commands = [
 			new PingCommand(),
 			new HelpCommand(),
+			new ClearCommand(),
 		];
 	}
 

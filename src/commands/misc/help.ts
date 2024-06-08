@@ -16,7 +16,11 @@ export class HelpCommand implements Command {
             .addFields(
                 {
                     name: "Moderator Commands",
-                    value: `\`/giveaway\`: Creates a giveaway.`
+                    value: 
+                    `
+                    \`/giveaway\`: Creates a giveaway.
+                    \`/clear\`: Bulk deletes messages.
+                    `
                 },
                 {
                     name: "Misc Commands",
