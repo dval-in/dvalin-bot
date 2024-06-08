@@ -1,5 +1,5 @@
 import { SlashCommandBuilder, PermissionFlagsBits } from "discord.js";
-import { Command } from "../command";
+import { Command } from "../../types/command";
 
 export class ClearCommand implements Command {
     name = "clear";

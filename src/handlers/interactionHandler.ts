@@ -1,5 +1,5 @@
 import { Interaction, ChatInputCommandInteraction, ButtonInteraction } from "discord.js";
-import { Command } from "../commands/command";
+import { Command } from "../types/command";
 import { PingCommand } from "../commands/misc/ping";
 import { HelpCommand } from "../commands/misc/help";
 import { ClearCommand } from "../commands/moderation/clear";

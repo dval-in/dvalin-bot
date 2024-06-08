@@ -1,5 +1,5 @@
 import { SlashCommandBuilder, EmbedBuilder } from "discord.js";
-import { Command } from "../command";
+import { Command } from "../../types/command";
 
 export class HelpCommand implements Command {
     name = "help";
