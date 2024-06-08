@@ -44,18 +44,10 @@ export class KickCommand implements Command {
             return;
         }
 
-        try {
-            guild.members.kick(user);
-            await interaction.reply({
-                content: `User ${user} has been kicked.`,
-                ephemeral: true
-            });
-
-        } catch (err) {
-            await interaction.reply({
-                content: err,
-                ephemeral: true
-            });
-        }
+        guild.members.kick(user);
+        await interaction.reply({
+            content: `User ${user} has been kicked.`,
+            ephemeral: true
+        });
     }
 }
