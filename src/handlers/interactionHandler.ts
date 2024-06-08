@@ -4,6 +4,7 @@ import { PingCommand } from "../commands/misc/ping";
 import { HelpCommand } from "../commands/misc/help";
 import { ClearCommand } from "../commands/moderation/clear";
 import { KickCommand } from "../commands/moderation/kick";
+import { BanCommand } from "../commands/moderation/ban";
 
 export class InteractionHandler {
 	private commands: Command[];
@@ -14,6 +15,7 @@ export class InteractionHandler {
 			new HelpCommand(),
 			new ClearCommand(),
 			new KickCommand(),
+			new BanCommand(),
 		];
 	}
 
