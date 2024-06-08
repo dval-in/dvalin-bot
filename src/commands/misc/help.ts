@@ -17,18 +17,14 @@ export class HelpCommand implements Command {
                 {
                     name: "Moderator Commands",
                     value: 
-                    `
-                    \`/giveaway\`: Creates a giveaway.
-                    \`/clear\`: Bulk deletes messages.
-                    `
+                        `\`/giveaway\`: Creates a giveaway.\n` +
+                        `\`/clear\`: Bulk deletes messages.`
                 },
                 {
                     name: "Misc Commands",
-                    value:
-                    `
-                    \`/help\`: Shows info about the discord bot. 
-                    \`/ping\`: Pings the bot to check online status.
-                    `
+                    value: 
+                        `\`/help\`: Shows info about the discord bot.\n` + 
+                        `\`/ping\`: Pings the bot to check online status.`
                 },
             )
             .setTimestamp();
