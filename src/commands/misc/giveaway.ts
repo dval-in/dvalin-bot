@@ -9,13 +9,14 @@ import {
     ComponentType, 
 } from "discord.js";
 import { Command } from "../../types/command";
+import { config } from "../../config";
 
 let participants: string[] = [];
 
 export class GiveawayCommand implements Command {
     name = "giveaway";
     description = "Creates a giveaway";
-    announcementChannelId = "1248803255077572809";
+    announcementChannelId = config.ANNOUNCEMENT_CHANNEL_ID;
     slashCommandConfig = new SlashCommandBuilder()
         .setName(this.name)
         .setDescription(this.description)
