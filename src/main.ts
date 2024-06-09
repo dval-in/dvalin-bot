@@ -36,6 +36,7 @@ class Bot {
 			.login(config.DISCORD_TOKEN)
 			.then(() => {
 				this.addClientEventHandlers();
+				this.deleteSlashCommands();
 				this.registerSlashCommands();
 			})
 			.catch((err) => {
@@ -72,6 +73,12 @@ class Bot {
 			.catch((err) => {
 				console.error("Error registering application (/) commands", err);
 			});
+	}
+
+	deleteSlashCommands() {
+		this.discordRestClient.put(Routes.applicationCommands(config.DISCORD_CLIENT_ID), { body: []})
+			.then(() => console.log("Successfully deleted all global application (/) commands."))
+			.catch(console.error);
 	}
 }
 
