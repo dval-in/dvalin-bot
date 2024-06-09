@@ -6,7 +6,7 @@ import {
 	Routes,
 	ChatInputCommandInteraction
 } from "discord.js";
-import { onMessageCreate } from "./events/messageCreate";
+// import { onMessageCreate } from "./events/messageCreate";
 import { onReady } from "./events/ready";
 import { config } from "./config";
 import { InteractionHandler } from './handlers/interactionHandler';
@@ -36,6 +36,7 @@ class Bot {
 			.login(config.DISCORD_TOKEN)
 			.then(() => {
 				this.addClientEventHandlers();
+				// this.deleteSlashCommands();
 				this.registerSlashCommands();
 			})
 			.catch((err) => {
@@ -51,7 +52,7 @@ class Bot {
 			console.error("Client error", err);
 		});
 
-		this.client.on(Events.MessageCreate, message => onMessageCreate(this.client, message));
+		// this.client.on(Events.MessageCreate, message => onMessageCreate(this.client, message));
 
 		this.client.on(Events.InteractionCreate, (interaction) => {
 			this.interactionHandler.handleInteraction(
@@ -72,6 +73,12 @@ class Bot {
 			.catch((err) => {
 				console.error("Error registering application (/) commands", err);
 			});
+	}
+
+	deleteSlashCommands() {
+		this.discordRestClient.put(Routes.applicationCommands(config.DISCORD_CLIENT_ID), { body: []})
+			.then(() => console.log("Successfully deleted all global application (/) commands."))
+			.catch(console.error);
 	}
 }
 

@@ -1,5 +1,5 @@
 import { SlashCommandBuilder } from "discord.js";
-import { Command } from "../command";
+import { Command } from "../../types/command";
 
 export class PingCommand implements Command {
 	name = "ping";
