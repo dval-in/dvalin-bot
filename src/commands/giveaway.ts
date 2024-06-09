@@ -46,31 +46,33 @@ export class GiveawayCommand implements Command {
     
     async execute(interaction: any): Promise<void> {
 
-		function epochTime(input: string): number | undefined {
-			
-			const timeRegex = /^(\d+)\s*days?\s*(\d+)\s*hours?\s*(\d+)\s*minutes?\s*(\d+)(?:\s*seconds?)?$/i;
-			
-			const match = input.match(timeRegex);
+        const role = interaction.options.getRole("role");
 
-			if (!match) {
-				console.error("Invalid input format. Please provide a valid time.");
-				return undefined;
-			};
+        const duration = interaction.options.getInteger("duration"); 
 
-			const days = parseInt(match[1], 10);
-			const hours = parseInt(match[2], 10);
-			const minutes = parseInt(match[3], 10);
-			const seconds = parseInt(match[4], 10);
-			const durationTime = ((((days * 24) + hours * 60) + minutes * 60) + seconds); // Convert duration to seconds
-		
-			function calculateEpochTime(durationTime: number): number {
-				const epochTime = Date.now() + durationTime;
-				return epochTime;
-			}
+		function epochTime(input: string): number | string {			
+
+			const dayRegex = /(\d+)\s*d/i;
+			const hourRegex = /(\d+)\s*h/i;
+			const minRegex = /(\d+)\s*m/i;
+			const secRegex = /(\d+)\s*s/i;
+			
+			
+			const dayMatch = duration.match(dayRegex);
+			const hourMatch = duration.match(hourRegex);
+			const minMatch = duration.match(minRegex);
+			const secMatch = duration.match(secRegex);
+			
+			const dayMS = (86400000*(dayMatch ? dayMatch[1] : 0));
+			const hourMS = (3600000*(hourMatch ? hourMatch[1] : 0));
+			const minMS = (60000*(minMatch ? minMatch[1] : 0));
+			const secMS = (1000*(secMatch ? secMatch[1] : 0));
+			
+			const milliSeconds = dayMS + hourMS + minMS + secMS;
+			
+			return milliSeconds;
 		}	
 
-        const role = interaction.options.getRole("role");
-        const duration = interaction.options.getInteger("duration"); 
         const prize = interaction.options.getString("prize");
         const numWinners = interaction.options.getInteger("winners") ?? 1;
 
