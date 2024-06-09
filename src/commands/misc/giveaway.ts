@@ -108,7 +108,7 @@ export class GiveawayCommand implements Command {
 
         const response = await channel.send(
             {
-                content: `🎉 Giveaway Started! 🎉`,
+                content: `${role} 🎉 Giveaway Started! 🎉`,
                 embeds: [giveawayMessage],
                 components: [row],
             }
@@ -125,14 +125,19 @@ export class GiveawayCommand implements Command {
                 const giveawayUser = cInteraction.user;
                 const userId = giveawayUser.id;
 
-                // TODO: Add check for `@role`.
-                if (!participants.includes(userId)) {
-
-                    participants.push(userId);
-                    await cInteraction.reply({
-                        content: "You have entered the giveaway.",
-                        ephemeral: true
-                    });
+                if (!participants.includes(userId) && cInteraction.inCachedGuild()) {
+                    if (cInteraction.member.roles.cache.some(r => r.id === role.id)) {
+                        participants.push(userId);
+                        await cInteraction.reply({
+                            content: "You have entered the giveaway.",
+                            ephemeral: true
+                        });                            
+                    } else {
+                        await cInteraction.reply({
+                            content: `You are missing the required role ${role} to enter this giveaway.`,
+                            ephemeral: true
+                        });
+                    }
                 } else {
                     await cInteraction.reply({
                         content: "You have already entered the giveaway.",

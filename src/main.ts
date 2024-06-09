@@ -36,7 +36,7 @@ class Bot {
 			.login(config.DISCORD_TOKEN)
 			.then(() => {
 				this.addClientEventHandlers();
-				this.deleteSlashCommands();
+				// this.deleteSlashCommands();
 				this.registerSlashCommands();
 			})
 			.catch((err) => {
