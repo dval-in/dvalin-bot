@@ -6,7 +6,7 @@ import {
 	Routes,
 	ChatInputCommandInteraction
 } from "discord.js";
-import { onMessageCreate } from "./events/messageCreate";
+// import { onMessageCreate } from "./events/messageCreate";
 import { onReady } from "./events/ready";
 import { config } from "./config";
 import { InteractionHandler } from './handlers/interactionHandler';
@@ -51,7 +51,7 @@ class Bot {
 			console.error("Client error", err);
 		});
 
-		this.client.on(Events.MessageCreate, message => onMessageCreate(this.client, message));
+		// this.client.on(Events.MessageCreate, message => onMessageCreate(this.client, message));
 
 		this.client.on(Events.InteractionCreate, (interaction) => {
 			this.interactionHandler.handleInteraction(

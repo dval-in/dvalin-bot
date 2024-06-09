@@ -6,6 +6,7 @@ import { ClearCommand } from "../commands/moderation/clear";
 import { KickCommand } from "../commands/moderation/kick";
 import { BanCommand } from "../commands/moderation/ban";
 import { UnbanCommand } from "../commands/moderation/unban";
+import { GiveawayCommand } from "../commands/misc/giveaway";
 
 export class InteractionHandler {
 	private commands: Command[];
@@ -18,6 +19,7 @@ export class InteractionHandler {
 			new KickCommand(),
 			new BanCommand(),
 			new UnbanCommand(),
+			new GiveawayCommand(),
 		];
 	}
 
