@@ -25,10 +25,10 @@ export class GiveawayCommand implements Command {
                 .setDescription("The role to create giveaways for.")
                 .setRequired(true)
         )
-        .addIntegerOption((option) => 
+        .addStringOption((option) => 
             option
                 .setName("duration")
-                .setDescription("Amount of time for the giveaway to last.")
+                .setDescription("Amount of time in hours for the giveaway to last (Format: \"{x}{d/h/m/s}\", such as \"1h\").")
                 .setRequired(true)
         )
         .addStringOption((option) => 
@@ -45,14 +45,45 @@ export class GiveawayCommand implements Command {
     
     async execute(interaction: any): Promise<void> {
         const role = interaction.options.getRole("role");
-        // TODO: Set up duration checking for different times (minutes, hours, days, weeks, etc.)
-        const duration = interaction.options.getInteger("duration"); // milliseconds
+        const duration = interaction.options.getString("duration");
         const prize = interaction.options.getString("prize");
         const numWinners = interaction.options.getInteger("winners") ?? 1;
 
         const guild = interaction.guild;
-
         const channel = guild.channels.cache.get(this.announcementChannelId);
+
+        if (numWinners < 1) {
+            interaction.reply({
+                content: "Invalid winners input. Must be greater than 0.",
+                ephemeral: true
+            });
+            return;
+        }
+
+        const dayRegex = /(\d+)\s*d/i;
+        const hrsRegex = /(\d+)\s*h/i;
+        const minRegex = /(\d+)\s*m/i;
+        const secRegex = /(\d+)\s*s/i;
+
+        const days    = duration.match(dayRegex);
+        const hours   = duration.match(hrsRegex);
+        const minutes = duration.match(minRegex);
+        const seconds = duration.match(secRegex);
+
+        const durationMS = (
+            (days ? days[1] : 0) * 24 * 60 * 60 * 1000 +
+            (hours ? hours[1] : 0) * 60 * 60 * 1000 +
+            (minutes ? minutes[1] : 0) * 60 * 1000 +
+            (seconds ? seconds[1] : 0) * 1000
+        );
+
+        if (durationMS === 0) {
+            interaction.reply({
+                content: "Invalid time input. Please follow the format: \"{x}{d/h/m/s}\".",
+                ephemeral: true
+            });
+            return;
+        }
 
         const giveawayMessage = new EmbedBuilder()
             .setColor(0x0099FF)
@@ -69,7 +100,7 @@ export class GiveawayCommand implements Command {
 
         await interaction.reply(
             {
-                content: `Giveaway successfully created for ${role} with ${numWinners} winners for ${duration} seconds, in ${channel}`,
+                content: `Giveaway successfully created for ${role} with ${numWinners} winners for \`${duration}\`, in ${channel}`,
                 ephemeral: true
             }
         );
@@ -84,7 +115,7 @@ export class GiveawayCommand implements Command {
 
         const collector = response.createMessageComponentCollector({
             componentType: ComponentType.Button,
-            time: duration,
+            time: durationMS,
         });
 
         collector.on("collect", async (cInteraction: ButtonInteraction) => {
@@ -131,11 +162,16 @@ export class GiveawayCommand implements Command {
                 return;
             }
 
-            const winners = [];
-            for (let i = 0; i < numWinners; i++) {
-                const winnerIndex = Math.floor(Math.random() * participants.length);
-                winners.push(participants[winnerIndex]);
-                participants.splice(winnerIndex, 1);
+            let winners: string[] = [];
+
+            if (numWinners > participants.length) {
+                winners = participants;
+            } else {
+                for (let i = 0; i < numWinners; i++) {
+                    const winnerIndex = Math.floor(Math.random() * participants.length);
+                    winners.push(participants[winnerIndex]);
+                    participants.splice(winnerIndex, 1);
+                }
             }
             
             const endingEmbed = new EmbedBuilder()
